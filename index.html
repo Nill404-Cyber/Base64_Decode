@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Decoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--textarea-bg);
+            color: var(--textarea-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: var(--button-hover-bg);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: var(--result-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            white-space: pre-wrap;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .theme-toggle button {
+            background-color: #007bff;
+            color: white;
+        }
+        .theme-toggle button:hover {
+            background-color: #0056b3;
+        }
+        .light-theme {
+            --bg-color: #fff;
+            --border-color: #ddd;
+            --textarea-bg: #fff;
+            --textarea-text: #000;
+            --button-bg: #007bff;
+            --button-text: white;
+            --button-hover-bg: #0056b3;
+            --result-bg: #f8f9fa;
+            color: #000;
+        }
+        .dark-theme {
+            --bg-color: #222;
+            --border-color: #444;
+            --textarea-bg: #333;
+            --textarea-text: #ddd;
+            --button-bg: #007bff;
+            --button-text: white;
+            --button-hover-bg: #0056b3;
+            --result-bg: #333;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+    </div>
+    <div class="container">
+        <h1>Base64 Decoder</h1>
+        <form id="decoderForm">
+            <textarea id="base64Input" placeholder="Paste Base64 data here..."></textarea>
+            <button type="button" onclick="decodeBase64()">Decode</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function decodeBase64() {
+            const base64Input = document.getElementById('base64Input').value;
+            const resultDiv = document.getElementById('result');
+
+            try {
+                const decodedData = atob(base64Input);
+                resultDiv.textContent = decodedData;
+            } catch (e) {
+                resultDiv.textContent = 'Invalid Base64 data';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            }
+        }
+    </script>
+</body>
+</html>
